@@ -23,14 +23,14 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime,
-		id;
+        id;
 
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
-	let modal = document.querySelector('.modal_overlay');
-	let replay = document.querySelector('.modal_replay');
+    let modal = document.querySelector('.modal_overlay');
+    let replay = document.querySelector('.modal_replay');
 
 
     replay.addEventListener('click', function() {
@@ -69,13 +69,13 @@ var Engine = (function(global) {
          */
 
         // Determine win
-		if (player.win === true) {
-			 win.cancelAnimationFrame(id);
-			 modal.classList.toggle('hide');
-		}
-		else {
-			 id = win.requestAnimationFrame(main);
-		}
+        if (player.win === true) {
+             win.cancelAnimationFrame(id);
+             modal.classList.toggle('hide');
+        }
+        else {
+             id = win.requestAnimationFrame(main);
+        }
 
     }
 
@@ -195,8 +195,8 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-		'images/char-princess-girl.png',
-		'images/char-pink-girl.png'
+        'images/char-princess-girl.png',
+        'images/char-pink-girl.png'
 
     ]);
     Resources.onReady(init);
