@@ -1,4 +1,4 @@
-// Enemies our player must avoid
+// Enemies the player must avoid.
 const Enemy = function(x, y, speed) {
   this.x = x;
   this.y = y + 55;
@@ -7,12 +7,12 @@ const Enemy = function(x, y, speed) {
   this.initialPos = -this.xMove;
   this.edge = this.xMove * 5;
 
-  // The image/sprite for our enemies.
+  // The image/sprite for the enemies.
   this.sprite = "images/enemy-bug.png";
 };
 
 // Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+// Parameter: dt, a time delta between ticks.
 Enemy.prototype.update = function(dt) {
 
   // If enemy is not passed boundary,move forward.
@@ -25,12 +25,12 @@ Enemy.prototype.update = function(dt) {
   else this.x = this.initialPos;
 };
 
-// Draw the enemy on the screen, required method for game
+// Draw the enemy on the screen, required method for game.
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Main player class
+// Main player class.
 class PlayerMain {
   constructor() {
     this.sprite = "images/char-pink-girl.png";
@@ -50,13 +50,13 @@ class PlayerMain {
 
   // Method to handle keyboared inputs.
   handleInput(input) {
-    if (input == "left" && this.x > 0) {
+    if (input === "left" && this.x > 0) {
       this.x -= this.xMove;
-    } else if (input == "up" && this.y > 0) {
+    } else if (input === "up" && this.y > 0) {
       this.y -= this.yMove;
-    } else if (input == "right" && this.x < this.xMove * 4) {
+    } else if (input === "right" && this.x < this.xMove * 4) {
       this.x += this.xMove;
-    } else if (input == "down" && this.y < this.yMove * 4) {
+    } else if (input === "down" && this.y < this.yMove * 4) {
       this.y += this.yMove;
     }
   }
