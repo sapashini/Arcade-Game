@@ -1,7 +1,7 @@
 // Enemies the player must avoid.
 const Enemy = function(x, y, speed) {
   this.x = x;
-  this.y = y+60;
+  this.y = y + 55;
   this.xMove = 101;
   this.speed = speed;
   this.initialPos = -this.xMove;
@@ -30,6 +30,49 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//********************* car ***********************
+
+// Car to cross the screen.
+const Car = function(x,y,speed) {
+    // Variables applied to each of our instances go here,
+    // we've provided one for you to get started
+  this.x = x;
+  this.y = y + 55;
+  this.xMove = 101;
+  this.speed = speed;
+  this.initialPos = - this.xMove;
+  this.edge = this.xMove * 5;
+
+  // The image/sprite for the car.
+    this.sprite = 'images/car.png'; // Source: https://www.iconfinder.com/search/?q=car
+};
+
+// Update the car's position, required method for game
+// Parameter: dt, a time delta between ticks
+Car.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+
+  // if car is not passed boundary.
+  if (this.x < this.edge) {
+    // move forward
+    // Increment x by speed * dt
+    this.x += this.speed * dt;
+  }
+  else
+    // reset pos to start
+    this.x = this.initialPos;
+};
+
+// Draw the car on the screen,required method for game.
+Car.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+
+//******************************************************
+
 // Main player class.
 class PlayerMain {
   constructor() {
@@ -37,7 +80,7 @@ class PlayerMain {
     this.xMove = 101;
     this.yMove = 83;
     this.startX = this.xMove * 2;
-    this.startY = (this.yMove * 4) + 60;
+    this.startY = (this.yMove * 4) + 55;
     this.x = this.startX;
     this.y = this.startY;
     this.win = false;
@@ -70,13 +113,20 @@ class PlayerMain {
         (enemy.x + enemy.xMove / 2 > this.x &&
           enemy.x < this.x + this.xMove / 2)
       ) {
-        console.log('1st: '+this.y, enemy.y);
+        this.reset();
+      }
+
+      // Check collision with car.
+      if (
+        this.y === car.y &&
+        (car.x + car.xMove / 2 > this.x &&
+          car.x < this.x + this.xMove / 2)
+      ) {
         this.reset();
       }
 
       // Check for win.
-      if ((this.y+23) === 0) {
-        console.log(this.y+'test');
+      if (this.y === 55) {
         this.win = true;
       }
     }
@@ -92,16 +142,16 @@ class PlayerMain {
 // Instantiate objects.
 const player = new PlayerMain();
 
+const car = new Car(-101, 83 * 2.5, 400);
+
 // Place all enemy objects in an array called allEnemies
 const firstEnemy = new Enemy(-101, 0, 200);
 const secondEnemy = new Enemy(-101, 83, 300);
-const thirdEnemy = new Enemy((-101 * 3), 83, 300);
-const fourthEnemy = new Enemy(-101, (83 * 2), 350);
-const fithEnemy = new Enemy((-101 * 3), (83 * 2), 350);
-
+const thirdEnemy = new Enemy(-101 * 3, 83, 300);
+const fourthEnemy = new Enemy(-101*3, 83*2, 400);
 
 const allEnemies = [];
-allEnemies.push(firstEnemy, secondEnemy,thirdEnemy,fourthEnemy,fithEnemy);
+allEnemies.push(firstEnemy, secondEnemy, thirdEnemy,fourthEnemy);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
