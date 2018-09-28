@@ -1,3 +1,5 @@
+"use strict";
+
 // Enemies the player must avoid.
 const Enemy = function(x, y, speed) {
   this.x = x;
