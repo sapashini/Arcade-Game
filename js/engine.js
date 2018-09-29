@@ -39,6 +39,7 @@ var Engine = (function(global) {
         player.reset();
         player.win = false;
         win.requestAnimationFrame(main);
+        bgdSound.play();
     });
 
     /* This function serves as the kickoff point for the game loop itself
@@ -73,6 +74,9 @@ var Engine = (function(global) {
         if (player.win === true) {
              win.cancelAnimationFrame(id);
              modal.classList.toggle('hide');
+             bgdSound.stop();
+             winSound.play();
+             
         }
         else {
              id = win.requestAnimationFrame(main);
@@ -88,6 +92,8 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
+
+        //sound.play();
     }
 
     /* This function is called by main (our game loop) and itself calls all

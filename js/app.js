@@ -1,3 +1,10 @@
+/*
+* I will like to aknoledge  and attribute my
+* references to the following resources in executing the project.
+* 1. Arcade Game Walkthrough Blog by Matthew Cranford; Description
+* 2. 'howler.js' audio library for the modern web, by goldfire.
+*/
+
 "use strict";
 
 // Enemies the player must avoid.
@@ -72,13 +79,12 @@ class PlayerMain {
         (enemy.x + enemy.xMove / 2 > this.x &&
           enemy.x < this.x + this.xMove / 2)
       ) {
-        console.log('1st: '+this.y, enemy.y);
+        collSound.play();
         this.reset();
       }
 
       // Check for win.
       if ((this.y+23) === 0) {
-        console.log(this.y+'test');
         this.win = true;
       }
     }
@@ -104,6 +110,27 @@ const fithEnemy = new Enemy((-101 * 3), (83 * 2), 350);
 
 const allEnemies = [];
 allEnemies.push(firstEnemy, secondEnemy,thirdEnemy,fourthEnemy,fithEnemy);
+
+// Backgrond sounds.
+const bgdSound = new Howl({
+    src: ['audio/sound1.webm', 'audio/sound1.mp3', 'audio/sound1.wav'], // Source - https://github.com/goldfire/howler.js.git
+      autoplay: true,
+    loop: true,
+    volume: 0.4,
+});
+
+
+// Collision sounds.
+const collSound = new Howl({
+    src: ['audio/smash.mp3'],// source - http://soundbible.com/1945-Smashing.html
+      volume: 0.4
+});
+
+// Win sounds.
+const winSound = new Howl({
+    src: ['audio/applause.mp3'],// source - http://soundbible.com/988-Applause.html
+    volume: 0.5
+});
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
